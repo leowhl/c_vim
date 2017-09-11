@@ -79,32 +79,32 @@ set incsearch        "在查找时输入字符过程中就高亮显示匹配点�
 set wrapscan         "设置查找到文件尾部后折返开头或查找到开头后折返尾部
 set smartcase
 
+set nobackup         "取消备份"
+set nowritebackup
+set noswapfile
+
+set clipboard=unnamed   "访问系统剪贴板
 "====================
 "Plugin settings
 "===================
 
 "set vundle
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
-Bundle 'christoomey/vim-run-interactive'
+Bundle 'gmarik/Vundle.vim'
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'croaky/vim-colors-github'
+Bundle 'christoomey/vim-run-interactive'
 Bundle 'danro/rename.vim'
 Bundle 'majutsushi/tagbar'
-Bundle 'kchmck/vim-coffee-script'
 Bundle 'kien/ctrlp.vim'
 Bundle 'pbrisbin/vim-mkdir'
 Bundle 'scrooloose/syntastic'
-Bundle 'slim-template/vim-slim'
-Bundle 'thoughtbot/vim-rspec'
 Bundle 'tpope/vim-bundler'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
-Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/ctags.vim'
 Bundle 'jakedouglas/exuberant-ctags'
 Bundle 'vim-scripts/matchit.zip'
@@ -116,7 +116,6 @@ Bundle "msanders/snipmate.vim"
 Bundle "jelera/vim-javascript-syntax"
 Bundle "altercation/vim-colors-solarized"
 Bundle "othree/html5.vim"
-Bundle "xsbeats/vim-blade"
 Bundle "Raimondi/delimitMate"
 Bundle "groenewege/vim-less"
 Bundle "evanmiller/nginx-vim-syntax"
@@ -125,15 +124,17 @@ Bundle "tomasr/molokai"
 Bundle "klen/python-mode"
 Bundle "Lokaltog/vim-powerline"
 
+
 filetype plugin indent on
 "vundle设置完毕
 
 "set YouCompleteMe
-let g:ycm_global_ycm_extra_conf ='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf ='~/.vim/.ycm_extra_conf.py'
 set completeopt=longest,menu                    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 let g:ycm_autoclose_preview_window_after_completion=1     "补全后自动关闭预览窗口
-let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'   "python 路径
+let g:ycm_path_to_python_interpreter='/usr/bin/python'   "python 路径
 let g:ycm_seed_identifiers_with_syntax=1    "是否开启语义补全
+let g:ycm_min_num_of_chars_for_completion=2 "从第2个键入字符就开始罗列匹配项
 let g:ycm_complete_in_comments=1                                "是否在注释中也开启补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
 let g:ycm_cache_omnifunc=0                                    " 禁止缓存匹配项,每次都重新生成匹配项
@@ -156,8 +157,19 @@ let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 " let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
 let NERDTreeShowBookmarks=1
 let NERDTreeWinPos = "left"
-"autocmd vimenter * NERDTree   "打开vim时自动打开NERDTree
+autocmd vimenter * NERDTree   "打开vim时自动打开NERDTree
 
 "set tagbar
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'  " 设置ctags所在路径
 let g:tagbar_autofocus=1
+autocmd VimEnter * nested :TagbarOpen
+
+let mapleader=','
+
+" Run commands that require an interactive shell
+nnoremap <Leader>r :RunInInteractiveShell<space>
+
+imap <C-K> <Esc>
+vmap <C-K> <Esc>
+
+let delimitMate_matchpairs = "(:),[:],{:}"
